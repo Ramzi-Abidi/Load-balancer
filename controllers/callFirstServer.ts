@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 
-export function callSecondServer(
+export function callFirstServer(
     req: Request,
     res: Response,
     next: NextFunction,
@@ -10,8 +10,9 @@ export function callSecondServer(
         ${req.method}
         ${req.protocol}
         host: ${req.hostname}
-        Hello from the second backend server !`;
-
+        Hello from the first backend server !`;
+        // ${req.rawHeaders[2]}
+        // ${req.rawHeaders[1]}
         return res.status(200).json(response);
     } catch (err) {
         console.log(err);

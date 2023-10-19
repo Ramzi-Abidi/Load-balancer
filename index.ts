@@ -8,6 +8,13 @@ dotenv.config();
 
 export let index: number = 0;
 
+
+export const servers: Array<string> = [
+    "http://localhost:88",
+    "http://localhost:55",
+    "http://localhost:90",
+];
+
 const port = process.env.LOAD_BALANCER_PORT;
 loadBalancer.listen(port, () => {
     console.log(`Load balancer is running at http://localhost:${port}`);
@@ -16,20 +23,20 @@ loadBalancer.listen(port, () => {
 const firstServerPort = process.env.SERVER_PORT;
 server1.listen(firstServerPort, () => {
     console.log(
-        `First server is running at http://localhost:${firstServerPort}`,
+        `Server-1 is running at http://localhost:${firstServerPort}`,
     );
 });
 
 const secondServerPort = process.env.SECOND_SERVER_PORT;
 server2.listen(secondServerPort, () => {
     console.log(
-        `Second server is running at http://localhost:${secondServerPort}`,
+        `Server-2 is running at http://localhost:${secondServerPort}`,
     );
 });
 
-const thirdServerPort = process.env.THIRD_SERVER_PORT;
-server3.listen(thirdServerPort, () => {
-    console.log(
-        `Second server is running at http://localhost:${thirdServerPort}`,
-    );
-});
+// const thirdServerPort = process.env.THIRD_SERVER_PORT;
+// server3.listen(thirdServerPort, () => {
+//     console.log(
+//         `Server-3 is running at http://localhost:${thirdServerPort}`,
+//     );
+// });
