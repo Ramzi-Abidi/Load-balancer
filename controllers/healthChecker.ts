@@ -17,7 +17,8 @@ export const healthChecker = (req: Request, res: Response) => {
         timestamp: Date.now(),
     };
     try {
-        // Add the server if it is healthy
+        // throw new Error("Error occured !!");
+
         const server = `http://${req.hostname}`;
         if (servers.indexOf(server) === -1) {
             servers.push(server);
