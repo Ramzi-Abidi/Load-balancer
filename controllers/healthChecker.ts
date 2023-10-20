@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { servers } from "..";
+import "colorts/lib/string";
 
 interface HealthCheck {
     uptime: any;
@@ -9,7 +10,6 @@ interface HealthCheck {
 }
 
 export const healthChecker = (req: Request, res: Response) => {
-    console.log("a");
     const healthcheck: HealthCheck = {
         uptime: process.uptime(),
         message: "OK",
@@ -17,18 +17,27 @@ export const healthChecker = (req: Request, res: Response) => {
         timestamp: Date.now(),
     };
     try {
-        // Add the server when it is healthy
-        console.log(req.url.toString());
-        if (req.hostname.toString() in servers === false) {
-            servers.push(req.url.toString());
+        // Add the server if it is healthy
+        const server = `http://${req.hostname}`;
+        if (servers.indexOf(server) === -1) {
+            servers.push(server);
         }
+        console.log(`Responsive servers left:`.yellow.underline, servers);
         return res.status(200).json(healthcheck);
     } catch (err: any) {
-        healthcheck.message = err.toString();
-        // // remove the server
-        // loop through
-        console.log("url", req.url);
-        // index - 1 > 0 ? servers.splice(index - 1, 1) : servers.splice(index, 1);
-        // return res.status(500).json(healthcheck);
+        console.log(err.message);
+        healthcheck.message = err.message;
+
+        const server = `http://${req.hostname}:${req.socket.localPort}`;
+
+        if (servers.indexOf(server) !== -1) {
+            servers.forEach((s, index) => {
+                if (server.toString() === s) {
+                    servers.splice(index, 1);
+                }
+            });
+        }
+        console.log(`Responsive servers left ${servers}`.yellow.underline);
+        return res.status(500).json(healthcheck);
     }
 };

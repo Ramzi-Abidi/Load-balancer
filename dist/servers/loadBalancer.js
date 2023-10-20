@@ -68,8 +68,8 @@ const calLoadBlancer = (req, res) => __awaiter(void 0, void 0, void 0, function*
     }
     catch (err) {
         console.log(req);
-        console.log("aaaaaa", `http://${req.rawHeaders}:`);
-        if (req.rawHeaders[7] in __1.servers == true) {
+        const serverAddress = `${req.protocol}://${req.rawHeaders}:`;
+        if (__1.servers.includes(serverAddress)) {
             __1.servers.forEach((s) => {
                 __1.servers.filter((el) => {
                     return el !== s;

@@ -38,8 +38,9 @@ const calLoadBlancer = async (req: Request, res: Response) => {
     } catch (err) {
         console.log(req);
 
-        console.log("aaaaaa", `http://${req.rawHeaders}:`);
-        if (req.rawHeaders[7] in servers == true) {
+        const serverAddress:string = `${req.protocol}://${req.rawHeaders}:`;
+
+        if (servers.includes(serverAddress)) {
             servers.forEach((s) => {
                 servers.filter((el) => {
                     return el !== s;
