@@ -14,5 +14,28 @@
 -   clone the repo
 -   npm install
 -   Generate ".env" file and allocate these variables to unused ports on your local machine: <br />
-    - SERVER_PORT, LOAD_BALANCER_PORT, SECOND_SERVER_PORT and THIRD_SERVER_PORT
+    - SERVER_PORT=
+    - LOAD_BALANCER_PORT=
+    - SECOND_SERVER_PORT=
+    - THIRD_SERVER_PORT=
 -   npm run dev
+
+
+<strong><h3>How to use the project works?</h3></strong>
+- Once you run  the command "npm run dev".
+- When you send an HTTP request to the load balancer by: <br />
+    - curl http://localhost:LOAD_BALANCER_PORT/<br />
+
+- It will forward the request to the active servers
+and you will get hello from server... <br />
+according to RR algorithm.
+
+- This command is responsible for checking the health of server: <br />
+    - curl http://localhost:PORT_NUMBER/health-check <br />
+
+- when you run the previous command you will get a response contains details abt you server.
+
+- Try to kill one of the servers(by uncommenting "throw new Error()" in "healthChecker.ts")
+and run this cmd: 
+- curl http://localhost:PORT_NUMBER/health-check <br />
+and the broken server will be out.
