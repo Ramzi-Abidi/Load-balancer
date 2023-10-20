@@ -4,9 +4,19 @@ import { server2 } from "./servers/server2";
 import { server3 } from "./servers/server3";
 import dotenv from "dotenv";
 
+// console.log('hello'.green);
+// console.log('i like cake and pies'.underline.red)
+
 dotenv.config();
 
 export let index: number = 0;
+
+export const servers: Array<string> = [
+    "http://localhost:88",
+    "http://localhost:55",
+    "http://localhost:90",
+];
+
 
 const port = process.env.LOAD_BALANCER_PORT;
 loadBalancer.listen(port, () => {
@@ -15,21 +25,15 @@ loadBalancer.listen(port, () => {
 
 const firstServerPort = process.env.SERVER_PORT;
 server1.listen(firstServerPort, () => {
-    console.log(
-        `First server is running at http://localhost:${firstServerPort}`,
-    );
+    console.log(`Server-1 is running at http://localhost:${firstServerPort}`);
 });
 
 const secondServerPort = process.env.SECOND_SERVER_PORT;
 server2.listen(secondServerPort, () => {
-    console.log(
-        `Second server is running at http://localhost:${secondServerPort}`,
-    );
+    console.log(`Server-2 is running at http://localhost:${secondServerPort}`);
 });
 
 const thirdServerPort = process.env.THIRD_SERVER_PORT;
 server3.listen(thirdServerPort, () => {
-    console.log(
-        `Second server is running at http://localhost:${thirdServerPort}`,
-    );
+    console.log(`Server-3 is running at http://localhost:${thirdServerPort}`);
 });

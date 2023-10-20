@@ -39,6 +39,7 @@ exports.loadBalancer = void 0;
 const express_1 = __importStar(require("express"));
 const dotenv_1 = __importDefault(require("dotenv"));
 const axios_1 = __importDefault(require("axios"));
+const __1 = require("..");
 // import { calLoadBlancer } from "../routes/callLoadBalancer";
 dotenv_1.default.config();
 exports.loadBalancer = (0, express_1.default)();
@@ -53,14 +54,9 @@ const calLoadBlancer = (req, res) => __awaiter(void 0, void 0, void 0, function*
         return responseData;
     });
     // simple RR algorithm to forward the req the 1st server, the next req to the 2nd server etc.
-    const servers = [
-        "http://localhost:88",
-        "http://localhost:55",
-        "http://localhost:90",
-    ];
     let responseData = null;
-    server = servers[index];
-    if (index === servers.length - 1) {
+    server = __1.servers[index];
+    if (index === __1.servers.length - 1) {
         index = 0;
     }
     else {
@@ -71,7 +67,17 @@ const calLoadBlancer = (req, res) => __awaiter(void 0, void 0, void 0, function*
         return res.status(200).json(responseData);
     }
     catch (err) {
-        console.log(err);
+        console.log(req);
+        const serverAddress = `${req.protocol}://${req.rawHeaders}:`;
+        if (__1.servers.includes(serverAddress)) {
+            __1.servers.forEach((s) => {
+                __1.servers.filter((el) => {
+                    return el !== s;
+                });
+            });
+            console.log(__1.servers);
+        }
+        console.log("a", __1.servers);
         res.status(500).json("Error occured please try again !");
     }
 });

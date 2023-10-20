@@ -2,6 +2,7 @@ import express, { Express, Router } from "express";
 import dotenv from "dotenv";
 import axios from "axios";
 import { Request, Response } from "express-serve-static-core";
+import { servers } from "..";
 // import { calLoadBlancer } from "../routes/callLoadBalancer";
 
 dotenv.config();
@@ -22,11 +23,6 @@ const calLoadBlancer = async (req: Request, res: Response) => {
     };
 
     // simple RR algorithm to forward the req the 1st server, the next req to the 2nd server etc.
-    const servers: Array<string> = [
-        "http://localhost:88",
-        "http://localhost:55",
-        "http://localhost:90",
-    ];
 
     let responseData = null;
     server = servers[index];
@@ -40,7 +36,19 @@ const calLoadBlancer = async (req: Request, res: Response) => {
         responseData = await sendHttpReq(server);
         return res.status(200).json(responseData);
     } catch (err) {
-        console.log(err);
+        console.log(req);
+
+        const serverAddress:string = `${req.protocol}://${req.rawHeaders}:`;
+
+        if (servers.includes(serverAddress)) {
+            servers.forEach((s) => {
+                servers.filter((el) => {
+                    return el !== s;
+                });
+            });
+            console.log(servers);
+        }
+        console.log("a", servers);
         res.status(500).json("Error occured please try again !");
     }
 };
