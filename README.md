@@ -39,3 +39,19 @@ according to RR algorithm.
 and run this cmd: 
 - curl http://localhost:PORT_NUMBER/health-check <br />
 and the broken server will be out.
+
+## Steps to use Dockerfile for the application
+
+```shell
+docker build -t image-name:tag .
+```
+
+```shell
+docker run -itd -p host_port:container_port --env-file .env image-name:tag
+```
+
+## Steps to use docker compose
+
+```shell
+docker-compose up -d
+```
