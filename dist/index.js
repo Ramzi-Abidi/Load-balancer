@@ -9,8 +9,6 @@ const server1_1 = require("./servers/server1");
 const server2_1 = require("./servers/server2");
 const server3_1 = require("./servers/server3");
 const dotenv_1 = __importDefault(require("dotenv"));
-// console.log('hello'.green);
-// console.log('i like cake and pies'.underline.red)
 dotenv_1.default.config();
 exports.index = 0;
 exports.servers = [

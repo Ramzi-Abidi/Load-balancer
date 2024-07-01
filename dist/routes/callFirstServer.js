@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.callFirstServer = void 0;
-function callFirstServer(req, res, next) {
+exports.firstServer = void 0;
+function firstServer(req, res, next) {
     try {
         const response = `Received request from
         ${req.method}
@@ -15,4 +15,4 @@ function callFirstServer(req, res, next) {
         return res.status(200).json("Error occured please try again later !");
     }
 }
-exports.callFirstServer = callFirstServer;
+exports.firstServer = firstServer;

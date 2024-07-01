@@ -1,21 +1,20 @@
-import { NextFunction, Request, Response } from "express";
-
-export function callSecondServer(
-    req: Request,
-    res: Response,
-    next: NextFunction,
-) {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.thirdServer = void 0;
+function thirdServer(req, res) {
     try {
-        const response: string = `Received request from
+        const response = `Received request from
         ${req.method}
         ${req.protocol}
         host: ${req.hostname}
-        Hello from the second backend server !`;
+        Hello from the third backend server !`;
         // ${req.rawHeaders[2]}
         // ${req.rawHeaders[1]}
         return res.status(200).json(response);
-    } catch (err) {
+    }
+    catch (err) {
         console.log(err);
         return res.status(200).json("Error occured please try again later !");
     }
 }
+exports.thirdServer = thirdServer;

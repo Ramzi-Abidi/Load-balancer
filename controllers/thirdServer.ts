@@ -1,9 +1,11 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.thirdServer = void 0;
-function thirdServer(req, res) {
+import { Request, Response } from "express";
+
+export function thirdServer(
+    req: Request,
+    res: Response,
+) {
     try {
-        const response = `Received request from
+        const response: string = `Received request from
         ${req.method}
         ${req.protocol}
         host: ${req.hostname}
@@ -11,10 +13,8 @@ function thirdServer(req, res) {
         // ${req.rawHeaders[2]}
         // ${req.rawHeaders[1]}
         return res.status(200).json(response);
-    }
-    catch (err) {
+    } catch (err) {
         console.log(err);
         return res.status(200).json("Error occured please try again later !");
     }
 }
-exports.thirdServer = thirdServer;

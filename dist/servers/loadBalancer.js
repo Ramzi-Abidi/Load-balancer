@@ -40,13 +40,12 @@ const express_1 = __importStar(require("express"));
 const dotenv_1 = __importDefault(require("dotenv"));
 const axios_1 = __importDefault(require("axios"));
 const __1 = require("..");
-// import { calLoadBlancer } from "../routes/callLoadBalancer";
 dotenv_1.default.config();
 exports.loadBalancer = (0, express_1.default)();
 const router = (0, express_1.Router)();
 let index = 0;
 let server;
-const calLoadBlancer = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const callLoadBlancer = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const sendHttpReq = (endpoint) => __awaiter(void 0, void 0, void 0, function* () {
         console.log(endpoint);
         const serverResponse = yield axios_1.default.get(endpoint);
@@ -77,9 +76,8 @@ const calLoadBlancer = (req, res) => __awaiter(void 0, void 0, void 0, function*
             });
             console.log(__1.servers);
         }
-        console.log("a", __1.servers);
         res.status(500).json("Error occured please try again !");
     }
 });
-router.get("/", calLoadBlancer);
+router.get("/", callLoadBlancer);
 exports.loadBalancer.use(router);

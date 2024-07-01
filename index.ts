@@ -4,19 +4,15 @@ import { server2 } from "./servers/server2";
 import { server3 } from "./servers/server3";
 import dotenv from "dotenv";
 
-// console.log('hello'.green);
-// console.log('i like cake and pies'.underline.red)
-
 dotenv.config();
 
-export let index: number = 0;
+export let index = 0;
 
 export const servers: Array<string> = [
     "http://localhost:88",
     "http://localhost:55",
     "http://localhost:90",
 ];
-
 
 const port = process.env.LOAD_BALANCER_PORT;
 loadBalancer.listen(port, () => {

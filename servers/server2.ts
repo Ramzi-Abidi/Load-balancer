@@ -1,10 +1,7 @@
 import express, { Express, Router } from "express";
-
 import dotenv from "dotenv";
-
-import { callSecondServer } from "../controllers/callSecondServer";
-
 import { healthChecker } from "../controllers/healthChecker";
+import { secondServer } from "../controllers/secondServer";
 
 dotenv.config();
 
@@ -14,6 +11,6 @@ const router: Router = Router();
 
 router.get("/health-check", healthChecker);
 
-router.get("/", callSecondServer);
+router.get("/", secondServer);
 
 server2.use(router);

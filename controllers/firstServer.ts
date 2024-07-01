@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 
-export function callFirstServer(
+export function firstServer(
     req: Request,
     res: Response,
     next: NextFunction,
